@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TruthLens AI</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+TruthLens AI
+</div>
+
+<div class="nav-actions">
+
+<button onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+<a href="/dashboard">
+<button>
+📊 Dashboard
+</button>
+</a>
+
+</div>
+
+</nav>
+
+<section class="hero">
+
+<h1>Detect Fake News Using AI</h1>
+
+<p>
+TF-IDF + Random Forest powered misinformation detector.
+</p>
+
+</section>
+
+<div class="live-counter">
+
+Articles Analyzed:
+<span id="counter">
+0
+</span>
+
+</div>
+
+<section class="stats-row">
+
+<div class="stat-card">
+<h3>Model</h3>
+<p>Random Forest</p>
+</div>
+
+<div class="stat-card">
+<h3>Engine</h3>
+<p>TF-IDF NLP</p>
+</div>
+
+<div class="stat-card">
+<h3>Accuracy</h3>
+<p>~98%</p>
+</div>
+
+</section>
+
+<section class="main-card">
+
+<textarea
+id="article"
+placeholder="Paste article here..."
+></textarea>
+
+<button
+class="analyze-btn"
+onclick="analyzeNews()">
+Analyze News
+</button>
+
+<div style="margin-top:15px;display:flex;gap:10px;">
+
+<button
+class="analyze-btn"
+onclick="copyResult()">
+Copy Result
+</button>
+
+<button
+class="analyze-btn"
+onclick="shareResult()">
+Share Result
+</button>
+
+</div>
+
+</section>
+
+<div
+id="loading"
+class="loading">
+Analyzing...
+</div>
+
+<section
+id="resultCard"
+class="result-card">
+
+<h2 id="prediction"></h2>
+
+<div class="progress-wrapper">
+
+<div
+id="confidenceBar"
+class="progress-bar">
+</div>
+
+</div>
+
+<p id="confidence"></p>
+
+<p id="credibility"></p>
+
+<p id="risk"></p>
+
+<p id="category"></p>
+
+<p id="words"></p>
+
+<p id="readingTime"></p>
+
+<h3>AI Explanation</h3>
+
+<p id="reason"></p>
+
+</section>
+
+<section class="history-card">
+
+<h2>Recent Analysis</h2>
+
+<input
+type="text"
+id="historySearch"
+placeholder="Search History..."
+onkeyup="filterHistory()">
+
+<br><br>
+
+<div id="historyContainer"></div>
+
+</section>
+
+<script
+src="{{ url_for('static',
+filename='js/app.js') }}">
+</script>
+
+</body>
+</html>

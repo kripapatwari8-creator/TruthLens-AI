@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Dashboard</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static',
+filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<nav class="navbar">
+
+<div class="logo">
+TruthLens Dashboard
+</div>
+
+<a href="/">
+<button>
+🏠 Home
+</button>
+</a>
+
+</nav>
+
+<section class="dashboard">
+
+<h1>
+Analytics Dashboard
+</h1>
+
+<div class="dashboard-grid">
+
+<div class="dashboard-card">
+
+<h2 id="totalChecks">
+0
+</h2>
+
+<p>
+Total Analyses
+</p>
+
+</div>
+
+<div class="dashboard-card">
+
+<h2 id="realCount">
+0
+</h2>
+
+<p>
+Real News
+</p>
+
+</div>
+
+<div class="dashboard-card">
+
+<h2 id="fakeCount">
+0
+</h2>
+
+<p>
+Fake News
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+<script>
+
+fetch("/stats")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+document.getElementById(
+"totalChecks"
+).innerText=data.total;
+
+document.getElementById(
+"realCount"
+).innerText=data.real;
+
+document.getElementById(
+"fakeCount"
+).innerText=data.fake;
+
+});
+
+</script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="dashboard-card chart-card">
+
+    <h2>News Distribution</h2>
+
+    <div class="chart-container">
+        <canvas id="newsChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+fetch("/stats")
+.then(res => res.json())
+.then(data => {
+
+new Chart(
+document.getElementById("newsChart"),
+{
+type:"doughnut",
+
+data:{
+labels:[
+"Real",
+"Fake"
+],
+
+datasets:[
+{
+data:[
+data.real,
+data.fake
+]
+}
+]
+}
+});
+});
+</script>
+</body>
+</html>
